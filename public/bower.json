@@ -1,0 +1,27 @@
+{
+  "name": "idevops",
+  "description": "student portal for idevops",
+  "main": "",
+  "authors": [
+    "ssturghill@idevops.io"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ssturghill/idevops",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-form": "PolymerElements/iron-form#^2.3.0",
+    "iron-component-page": "PolymerElements/iron-component-page#^3.0.1",
+    "paper-button": "PolymerElements/paper-button#^2.1.1",
+    "paper-input": "PolymerElements/paper-input#^2.2.2",
+    "polymer-password-strength": "limonte/polymer-password-strength#^1.0.0",
+    "gold-password-input": "GeoloeG/gold-password-input#^2.1.0",
+    "simple-modal": "SimpleElements/simple-modal#^0.3.3",
+    "paper-toast": "PolymerElements/paper-toast#^2.1.1"
+  }
+}

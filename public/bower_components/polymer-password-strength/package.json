@@ -1,0 +1,23 @@
+{
+  "name": "polymer-password-strength",
+  "version": "1.0.0",
+  "repository": "limonte/polymer-password-strength",
+  "homepage": "https://github.com/limonte/polymer-password-strength",
+  "description": "A Polymer password strength indicator, powered by zxcvbn",
+  "main": "password-strength.html",
+  "author": "Limon Monte <limon.monte@gmail.com> (https://limonte.github.io)",
+  "keywords": [
+    "password-strength",
+    "no-weakness",
+    "polymer"
+  ],
+  "dependencies": {
+    "@polymer/polymer": "^2.0.0",
+    "zxcvbn": "^4.0.0"
+  },
+  "devDependencies": {
+    "polymer-cli": "^1.0.0"
+  },
+  "bugs": "https://github.com/limonte/polymer-password-strength/issues",
+  "license": "MIT"
+}

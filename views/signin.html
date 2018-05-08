@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iDevOps</title>
+    <!-- <link rel="stylesheet" href="stylesheets/style.css"> -->
+    <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="../bower_components/iron-form/iron-form.html">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/iron-component-page/iron-component-page.html">
+    <link rel="import" href="../bower_components/paper-button/paper-button.html">
+    <link rel="import" href="../bower_components/paper-input/paper-input.html">
+    <link rel="import" href="../bower_components/polymer-password-strength/password-strength.html">
+    <link rel="import" href="bower_components/gold-password-input/gold-password-input.html">
+
+    <style>
+      paper-input::shadow {
+        size: 40;
+      }
+    </style>
+</head>
+<body>
+
+  <iron-form id="form2">
+  <form action="/login" method="post" onsubmit="return redirect()">
+    <paper-input name="username" label="Username"  required></paper-input>
+    <gold-password-input name="password" label="Password" reveal suffix>
+</gold-password-input>
+    <paper-button id="sbtn" raised onclick="form2.submit()">Submit</paper-button>
+    <!-- <paper-button raised onclick="form3.reset()">Reset</paper-button> -->
+  </form>
+  <!-- <div class="output"></div> -->
+</iron-form>
+<script>
+  // form2.addEventListener('iron-form-submit', function(event) {
+  //   this.querySelector('.output').innerHTML = JSON.stringify(event.detail);
+  // });
+
+</script>
+
+
+</body>
+
+</html>
