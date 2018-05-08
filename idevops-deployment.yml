@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: idevops
+spec:
+  selector:
+    matchLabels:
+      app: node
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - env:
+        image: sephyz/idevops
+        imagePullPolicy: Always
+        name: idevops
+        ports:
+        - containerPort: 3000
