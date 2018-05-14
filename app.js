@@ -5,11 +5,15 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var mongo = require('mongodb');
 var mongoose = require('mongoose');
+var multer = require('multer');
+var upload = multer({dest: './uploads'});
 var passport = require('passport');
 var LocalStrategy = require('passport-local'),Strategy;
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
+var db = mongoose.connection;
 
 
 mongoose.connect('mongodb://user:123456@ds257579.mlab.com:57579/nodejspractice', (err) =>{
@@ -37,20 +41,15 @@ app.set('view engine', 'html');
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
 
+// For file uploads
+// app.use(multer({dest:'./uploads'}));
+
 app.use(logger('dev'));
 app.use(session({secret:"qazwsxedcrfvQAZWSXEDCRFV",resave:false,saveUninitialized:true}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
-// Passport init
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use('/', indexRouter);
-app.use('/registration', registration);
-app.use('/signin', signin);
-app.use('/dashboard', dashboard);
 // app.use('/users', usersRouter);
 
 // Express Validator
@@ -70,6 +69,11 @@ app.use(expressValidator({
     };
   }
 }));
+// app.use(expressValidator());
+// Passport init
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Connect Flash
 app.use(flash());
 
@@ -79,23 +83,18 @@ app.use(function (req, res, next) {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
+  res.locals.mail = req.mail || null;
+  res.locals.errors = req.errors || null;
+  res.locals.msg = req.msg || null;
   next();
 });
 
-// // catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
-//
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-//
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
+app.use('/', indexRouter);
+app.use('/registration', registration);
+app.use('/signin', signin);
+app.use('/dashboard', dashboard);
+
+
+
 
 module.exports = app;

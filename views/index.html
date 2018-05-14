@@ -72,6 +72,17 @@
   </div>
 </div>
 
+<!-- <% if (user) {%>
+<div class="alert alert-danger"><p>Username has taken already try new</p></div>
+<% }%>
+<% if (mail) {%>
+<div class="alert alert-danger"><p>Email has taken already try new</p></div>
+<% }%> -->
+<% if (errors) {%>
+<% messages.forEach((message) => { %>
+<div class="alert alert-danger"><p><%= msg %></p></div>
+<% });%>
+<% }%>
 <!-- Register Modal -->
 <div id="myModal2" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -80,15 +91,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Sign Up</h4>
+        <h4 class="modal-title">Register</h4>
       </div>
       <div class="modal-body">
+
 				<iron-form id="form3">
 			  <form action="/register" method="post">
-			    <paper-input name="emailaddress" label="Email"  required></paper-input>
-			    <paper-input name="firstname" label="Firstname" required></paper-input>
-			    <paper-input name="lastname" label="Lastname"  required></paper-input>
-			    <paper-input name="username" label="Username"  required></paper-input>
+			    <paper-input name="emailaddress" label="Email"></paper-input>
+			    <paper-input name="firstname" label="Firstname"></paper-input>
+			    <paper-input name="lastname" label="Lastname"></paper-input>
+			    <paper-input name="username" label="Username"></paper-input>
 			    <gold-password-input name="password" label="Password" reveal prefix strength-meter>
 			</gold-password-input>
 			<gold-password-input name="password2" label="Retype Password" reveal prefix strength-meter>
@@ -294,9 +306,5 @@
 
 
 	</body>
-	<script>
-	document.getElementById("sbtn").onclick =  function() {
-	  window.location.href = "/dashboard";
-	};
-	</script>
+
 </html>

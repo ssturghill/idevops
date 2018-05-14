@@ -14,21 +14,39 @@
     <link rel="import" href="../bower_components/polymer-password-strength/password-strength.html">
     <link rel="import" href="bower_components/gold-password-input/gold-password-input.html">
 
-    <style>
-      paper-input::shadow {
-        size: 40;
-      }
-    </style>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+  <!-- <% if (user) {%>
+  <div class="alert alert-danger"><p>Username has taken already try new</p></div>
+  <% }%>
+  <% if (mail) {%>
+  <div class="alert alert-danger"><p>Email has taken already try new</p></div>
+  <% }%>
+  <% if (errors) {%>
+ <div class="alert alert-danger">
+     <% msg.forEach(function(msg){ %>
+       <p><%= msg %></p>
+     <% });%>
+ </div>
+<% }%> -->
 
   <iron-form id="form3">
   <form action="/register" method="post">
-    <paper-input name="emailaddress" label="Email"  required></paper-input>
-    <paper-input name="firstname" label="Firstname" required></paper-input>
-    <paper-input name="lastname" label="Lastname"  required></paper-input>
-    <paper-input name="username" label="Username"  required></paper-input>
+    <paper-input name="emailaddress" label="Email"></paper-input>
+    <paper-input name="firstname" label="Firstname"></paper-input>
+    <paper-input name="lastname" label="Lastname"></paper-input>
+    <paper-input name="username" label="Username"></paper-input>
     <gold-password-input name="password" label="Password" reveal prefix strength-meter>
+</gold-password-input>
+<gold-password-input name="password2" label="Retype Password" reveal prefix strength-meter>
 </gold-password-input>
     <paper-button raised onclick="form3.submit()">Submit</paper-button>
     <!-- <paper-button raised onclick="form3.reset()">Reset</paper-button> -->
