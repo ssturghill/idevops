@@ -8,23 +8,23 @@
 
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-    <link rel="import" href="../bower_components/iron-form/iron-form.html">
-    <link rel="import" href="../bower_components/polymer/polymer.html">
-    <link rel="import" href="../bower_components/iron-component-page/iron-component-page.html">
-    <link rel="import" href="../bower_components/paper-button/paper-button.html">
-    <link rel="import" href="../bower_components/paper-input/paper-input.html">
-    <link rel="import" href="../bower_components/polymer-password-strength/password-strength.html">
-    <link rel="import" href="bower_components/gold-password-input/gold-password-input.html">
+    	<link rel="import" href="../bower_components/iron-form/iron-form.html">
+    	<link rel="import" href="../bower_components/polymer/polymer.html">
+    	<link rel="import" href="../bower_components/iron-component-page/iron-component-page.html">
+    	<link rel="import" href="../bower_components/paper-button/paper-button.html">
+    	<link rel="import" href="../bower_components/paper-input/paper-input.html">
+    	<link rel="import" href="../bower_components/polymer-password-strength/password-strength.html">
+    	<link rel="import" href="bower_components/gold-password-input/gold-password-input.html">
 		<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 
 		<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -55,12 +55,11 @@
       </div>
       <div class="modal-body">
 				<iron-form id="form2">
-			  <form action="/login" method="post" onsubmit="return redirect()">
+			  <form action="/login" method="post">
 			    <paper-input name="username" label="Username"  required></paper-input>
 			    <gold-password-input name="password" label="Password" reveal suffix>
-			</gold-password-input>
-			    <paper-button id="sbtn" raised onclick="form2.submit()"; function() {
-					  window.location.href = "/dashboard";>Submit</paper-button>
+				</gold-password-input>
+			    <paper-button id="submitForm" raised onclick="form2.submit()";>Submit</paper-button>
 			    <!-- <paper-button raised onclick="form3.reset()">Reset</paper-button> -->
 			  </form>
       </div>
@@ -95,8 +94,8 @@
       </div>
       <div class="modal-body">
 
-				<iron-form id="form3">
-			  <form action="/register" method="post">
+			<iron-form id="form3">
+				<form action="/register" method="post">
 			    <paper-input name="emailaddress" label="Email"></paper-input>
 			    <paper-input name="firstname" label="Firstname"></paper-input>
 			    <paper-input name="lastname" label="Lastname"></paper-input>
@@ -303,6 +302,15 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			<script>$("myModal").on('submit', function(e){
+				$.post("/login", $(this).parent("form").serialize(),
+					function(){
+						window.location.href = "/dashboard";
+					}
+				);
+				e.preventDefault();  
+			});</script>
+			
 
 
 	</body>

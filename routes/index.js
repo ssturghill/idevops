@@ -28,7 +28,7 @@ router.post('/register', (req, res, next) => {
 
   // Validation
 	req.checkBody('firstname', 'Name is required').notEmpty();
-  req.checkBody('lastname', 'Name is required').notEmpty();
+  	req.checkBody('lastname', 'Name is required').notEmpty();
 	req.checkBody('emailaddress', 'Email is required').notEmpty();
 	req.checkBody('emailaddress', 'Email is not valid').isEmail();
 	req.checkBody('username', 'Username is required').notEmpty();
