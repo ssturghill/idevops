@@ -1,19 +1,408 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>iDevOps</title>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>iDevops</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 
-</head>
-<body>
-  <% if (user) { %>
-  <h2><%= user.username %></h2>
-<% } %>
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="../bower_components/iron-form/iron-form.html">
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/iron-component-page/iron-component-page.html">
+    <link rel="import" href="../bower_components/paper-button/paper-button.html">
+    <link rel="import" href="../bower_components/paper-input/paper-input.html">
+    <link rel="import" href="../bower_components/polymer-password-strength/password-strength.html">
+    <link rel="import" href="bower_components/gold-password-input/gold-password-input.html">
+		<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 
-<p>welcome to the member's area. </p>
+	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:700,900|Fira+Sans:400,400italic' rel='stylesheet' type='text/css'>
 
-<a href="/logout">Logout</a>
+	<link rel="stylesheet" href="assets/css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="assets/css/style.css"> <!-- Resource style -->
+	<script src="assets/js/modernizr.js"></script> <!-- Modernizr -->
 
-</body>
+		<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body class="landing">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<font color="white"><h1 id="logo"><a href="/dashboard">Welcome <% if (user) { %> <%= user.username %>
+<% } %></a></h1></font>
+					<nav id="nav">
+						<ul>
+							<li><button type="button" class="button special" data-toggle="modal" data-target="#myModal" class="button">Sign In</button></li>
+							<li><button type="button" class="button special" data-toggle="modal" data-target="#myModal2" class="button">Sign Up</button></li>
+							<li><a href="/logout" ><button type="button" class="button special" class="button">Logout</button></a></li>
+							<!-- <li><a href="#" class="button special">Hire "Coming soon"</a></li> -->
+						</ul>
+					</nav>
+				</header>
+				<!-- Login Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Sign In</h4>
+      </div>
+      <div class="modal-body">
+				<iron-form id="form2">
+			  <form action="/login" method="post" onsubmit="return redirect()">
+			    <paper-input name="username" label="Username"  required></paper-input>
+			    <gold-password-input name="password" label="Password" reveal suffix>
+			</gold-password-input>
+			    <paper-button id="sbtn" raised onclick="form2.submit()"; function() {
+					  window.location.href = "/dashboard";>Submit</paper-button>
+			    <!-- <paper-button raised onclick="form3.reset()">Reset</paper-button> -->
+			  </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- <% if (user) {%>
+<div class="alert alert-danger"><p>Username has taken already try new</p></div>
+<% }%>
+<% if (mail) {%>
+<div class="alert alert-danger"><p>Email has taken already try new</p></div>
+<% }%> -->
+<!-- <% if (errors) {%>
+<% messages.forEach((message) => { %>
+<div class="alert alert-danger"><p><%= msg %></p></div>
+<% });%>
+<% }%> -->
+<!-- Register Modal -->
+<div id="myModal2" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Register</h4>
+      </div>
+      <div class="modal-body">
+
+				<iron-form id="form3">
+			  <form action="/register" method="post">
+			    <paper-input name="emailaddress" label="Email"></paper-input>
+			    <paper-input name="firstname" label="Firstname"></paper-input>
+			    <paper-input name="lastname" label="Lastname"></paper-input>
+			    <paper-input name="username" label="Username"></paper-input>
+			    <gold-password-input name="password" label="Password" reveal prefix strength-meter>
+			</gold-password-input>
+			<gold-password-input name="password2" label="Retype Password" reveal prefix strength-meter>
+	</gold-password-input>
+			    <paper-button raised onclick="form3.submit()">Submit</paper-button>
+			    <!-- <paper-button raised onclick="form3.reset()">Reset</paper-button> -->
+			  </form>
+			  <!-- <div class="output"></div> -->
+			</iron-form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+			<!-- Banner -->
+				<section id="banner">
+					<div class="content">
+						<header>
+
+
+<section class="cd-horizontal-timeline">
+	<div class="timeline">
+		<div class="events-wrapper">
+			<div class="events">
+				<ol>
+					<li><a href="#0" data-date="16/01/2014" class="selected">Setting Up Accounts</a></li>
+					<li><a href="#0" data-date="28/02/2014">28 Feb</a></li>
+					<li><a href="#0" data-date="20/04/2014">20 Mar</a></li>
+					<li><a href="#0" data-date="20/05/2014">20 May</a></li>
+					<li><a href="#0" data-date="09/07/2014">09 Jul</a></li>
+					<li><a href="#0" data-date="30/08/2014">30 Aug</a></li>
+					<li><a href="#0" data-date="15/09/2014">15 Sep</a></li>
+					<li><a href="#0" data-date="01/11/2014">01 Nov</a></li>
+					<li><a href="#0" data-date="10/12/2014">10 Dec</a></li>
+					<li><a href="#0" data-date="19/01/2015">29 Jan</a></li>
+					<li><a href="#0" data-date="03/03/2015">3 Mar</a></li>
+				</ol>
+
+				<span class="filling-line" aria-hidden="true"></span>
+			</div> <!-- .events -->
+		</div> <!-- .events-wrapper -->
+
+		<ul class="cd-timeline-navigation">
+			<li><a href="#0" class="prev inactive">Prev</a></li>
+			<li><a href="#0" class="next">Next</a></li>
+		</ul> <!-- .cd-timeline-navigation -->
+	</div> <!-- .timeline -->
+
+	<div class="events-content">
+		<ol>
+			<li class="selected" data-date="16/01/2014">
+				<h2>Setting Up Accounts.</h2>
+				<em>getting started.</em>
+				<p>
+					For the first step you will need to navigate your browser to http://lynda.com and sign up for an account. Lynda.com offers free accounts for library card holders or paid accounts. The cost of Lynda is around $30.00 USD a month.
+				</p>
+			</li>
+
+			<li data-date="28/02/2014">
+				<h2>Event title here</h2>
+				<em>February 28th, 2014</em>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="20/04/2014">
+				<h2>Event title here</h2>
+				<em>March 20th, 2014</em>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="20/05/2014">
+				<h2>Event title here</h2>
+				<em>May 20th, 2014</em>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="09/07/2014">
+				<h2>Event title here</h2>
+				<em>July 9th, 2014</em>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="30/08/2014">
+				<h2>Event title here</h2>
+				<em>August 30th, 2014</em>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="15/09/2014">
+				<h2>Event title here</h2>
+				<em>September 15th, 2014</em>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="01/11/2014">
+				<h2>Event title here</h2>
+				<em>November 1st, 2014</em>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="10/12/2014">
+				<h2>Event title here</h2>
+				<em>December 10th, 2014</em>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="19/01/2015">
+				<h2>Event title here</h2>
+				<em>January 19th, 2015</em>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+
+			<li data-date="03/03/2015">
+				<h2>Event title here</h2>
+				<em>March 3rd, 2015</em>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+				</p>
+			</li>
+		</ol>
+	</div> <!-- .events-content -->
+</section>
+
+<script src="assets/js/jquery-2.1.4.js"></script>
+<script src="assets/js/jquery.mobile.custom.min.js"></script>
+<script src="assets/js/main-timeline.js"></script> <!-- Resource jQuery -->
+
+
+						</header>
+						<span class="image"><img src="images/pic01.jpg" alt="" /></span>
+					</div>
+					<a href="#one" class="goto-next scrolly">Next</a>
+				</section>
+
+			<!-- One -->
+				<section id="one" class="spotlight style1 bottom">
+					<span class="image fit main"><img src="images/pic02.jpg" alt="" /></span>
+					<div class="content">
+						<div class="container">
+							<div class="row">
+								<div class="4u 12u$(medium)">
+									<header>
+										<h2>Innovative Training</h2>
+										<p>“There’s no ‘wax on, wax off’ with DevOps. Learn by doin’ it.”. </p>
+									</header>
+								</div>
+								<div class="4u 12u$(medium)">
+									<p>comming soon...</p>
+								</div>
+								<div class="4u$ 12u$(medium)">
+									<p>comming soon...</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<a href="#two" class="goto-next scrolly">Next</a>
+				</section>
+
+			<!-- Two -->
+				<section id="two" class="spotlight style2 right">
+					<span class="image fit main"><img src="images/pic03.jpg" alt="" /></span>
+					<div class="content">
+						<p>comming soon...</p>
+					</div>
+					<a href="#three" class="goto-next scrolly">Next</a>
+				</section>
+
+			<!-- Three -->
+				<section id="three" class="spotlight style3 left">
+					<span class="image fit main bottom"><img src="images/pic04.jpg" alt="" /></span>
+					<div class="content">
+							<p>comming soon...</p>
+					</div>
+					<a href="#four" class="goto-next scrolly">Next</a>
+				</section>
+
+			<!--
+				<section id="four" class="wrapper style1 special fade-up">
+					<div class="container">
+						<header class="major">
+							<h2>Accumsan sed tempus adipiscing blandit</h2>
+							<p>Iaculis ac volutpat vis non enim gravida nisi faucibus posuere arcu consequat</p>
+						</header>
+						<div class="box alt">
+							<div class="row uniform">
+								<section class="4u 6u(medium) 12u$(xsmall)">
+									<span class="icon alt major fa-area-chart"></span>
+									<h3>Ipsum sed commodo</h3>
+									<p>Feugiat accumsan lorem eu ac lorem amet accumsan donec. Blandit orci porttitor.</p>
+								</section>
+								<section class="4u 6u$(medium) 12u$(xsmall)">
+									<span class="icon alt major fa-comment"></span>
+									<h3>Eleifend lorem ornare</h3>
+									<p>Feugiat accumsan lorem eu ac lorem amet accumsan donec. Blandit orci porttitor.</p>
+								</section>
+								<section class="4u$ 6u(medium) 12u$(xsmall)">
+									<span class="icon alt major fa-flask"></span>
+									<h3>Cubilia cep lobortis</h3>
+									<p>Feugiat accumsan lorem eu ac lorem amet accumsan donec. Blandit orci porttitor.</p>
+								</section>
+								<section class="4u 6u$(medium) 12u$(xsmall)">
+									<span class="icon alt major fa-paper-plane"></span>
+									<h3>Non semper interdum</h3>
+									<p>Feugiat accumsan lorem eu ac lorem amet accumsan donec. Blandit orci porttitor.</p>
+								</section>
+								<section class="4u 6u(medium) 12u$(xsmall)">
+									<span class="icon alt major fa-file"></span>
+									<h3>Odio laoreet accumsan</h3>
+									<p>Feugiat accumsan lorem eu ac lorem amet accumsan donec. Blandit orci porttitor.</p>
+								</section>
+								<section class="4u$ 6u$(medium) 12u$(xsmall)">
+									<span class="icon alt major fa-lock"></span>
+									<h3>Massa arcu accumsan</h3>
+									<p>Feugiat accumsan lorem eu ac lorem amet accumsan donec. Blandit orci porttitor.</p>
+								</section>
+							</div>
+						</div>
+
+						<footer class="major">
+							<ul class="actions">
+								<li><a href="#" class="button">Magna sed feugiat</a></li>
+							</ul>
+						</footer>
+					</div>
+				</section>
+			Four -->
+			<!-- Five
+				<section id="five" class="wrapper style2 special fade">
+					<div class="container">
+						<header>
+							<h2>Take your life back.</h2>
+							<p>Put in your email address and sign up to be an unpaid intern in our program today. Don't wait anyone can do it, you just have to put in the work.</p>
+						</header>
+						<form method="post" action="#" class="container 50%">
+							<div class="row uniform 50%">
+								<div class="8u 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Your Email Address" /></div>
+								<div class="4u$ 12u$(xsmall)"><input type="submit" value="Get Started" class="fit special" /></div>
+							</div>
+						</form>
+					</div>
+				</section>
+				-->
+
+				<footer id="footer">
+					<!-- Footer
+					<ul class="icons">
+						<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
+						<li><a href="#" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+					-->
+					<ul class="copyright">
+						<li>2018 &copy; iDevOps. All rights reserved.</li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+
+	</body>
 
 </html>
