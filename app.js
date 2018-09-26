@@ -13,6 +13,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local'),Strategy;
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
+var app = require('express')();
+var delay = require('express-delay'); 
 var db = mongoose.connection;
 
 
@@ -73,6 +75,11 @@ app.use(expressValidator({
 // Passport init
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // Connect Flash
 app.use(flash());
@@ -89,9 +96,12 @@ app.use(function (req, res, next) {
   next();
 });
 
+// Delay all responses for 1 second
+app.use(delay(2000));
+
 app.use('/', indexRouter);
 app.use('/registration', registration);
-app.use('/signin', signin);
+// app.use('/signin', signin);
 app.use('/dashboard', dashboard);
 
 

@@ -13,6 +13,7 @@
     "debug": "~2.6.9",
     "ejs": "^2.5.9",
     "express": "~4.16.0",
+    "express-delay": "^0.2.0",
     "express-messages": "^1.0.1",
     "express-session": "^1.15.6",
     "express-validator": "^5.1.2",

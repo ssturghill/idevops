@@ -6,12 +6,17 @@ var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../lib/user');
+var delay = require('express-delay');
 
 var app = express();
 
 mongoose.connect('mongodb://user:123456@ds257579.mlab.com:57579/nodejspractice');
 
-
+app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
+  });
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -107,10 +112,7 @@ router.post('/register', (req, res, next) => {
   });
 
   router.post('/login',
-  	passport.authenticate('local', { successRedirect: '/dashboard', failureRedirect: '/', failureFlash: true }),
-  	function (req, res) {
-  		res.redirect('dashboard');
-  	});
+  	passport.authenticate('local', { successRedirect: '/dashboard', failureRedirect: '/', failureFlash: true }));
 
   router.get('/logout', function (req, res) {
   	req.logout();
